@@ -1,0 +1,41 @@
+<%- include('partials/header.ejs') %>
+
+  <% if (locals.movies) { %>
+    <div class="movie-grid">
+      <% movies.forEach(movie=> { %>
+        <div class="movie-card">
+          <img src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>" class="movie-cover"
+            alt="<%= movie.title %>" onerror="src='/images/no-poster.jpg'">
+          <div class="movie-content">
+            <div>
+              <h3 class="text-gold fs-5 mb-1">
+                <%= movie.title %>
+              </h3>
+              <p class="release-date mb-2">
+                <%= movie.release_date ? movie.release_date.split("-")[0] : movie.release_date %>
+              </p>
+              <div class="rating-stars">
+                <div class="stars">
+                  <div class="stars-empty">★★★★★</div>
+                  <div class="stars-filled" data-rating="<%= movie.vote_average %>">★★★★★</div>
+                </div>
+                <span class="text-light ms-1">
+                  <%= movie.vote_average ? movie.vote_average.toFixed(1) : movie.vote_average %>/10
+                </span>
+              </div>
+              <p class="text-info small mt-1">
+                <%= movie.vote_count %> votes
+              </p>
+            </div>
+            <div class="btn-container">
+              <form action="/add" method="POST">
+                <input type="hidden" name="movieData" value="<%= JSON.stringify(movie) %>">
+                <button class="btn btn-gold btn-sm btn-add" type="submit">Add</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+    </div>
+    <% } %>
+      <%- include('partials/footer.ejs') %>
