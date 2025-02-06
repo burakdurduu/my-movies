@@ -1,0 +1,49 @@
+<%- include('partials/header') %>
+
+  <div class="container register-container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card register-card shadow-lg">
+          <div class="card-body p-5">
+            <h1 class="text-center mb-4 register-title">Create Account</h1>
+            <p class="text-center mb-4 register-subtitle">Start Your Movie Journey 🍿</p>
+
+            <form action="/register" method="POST">
+              <div class="form-group mb-3 register-input-group">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                  <input type="email" class="form-control" name="username" placeholder="Enter your email" required>
+                </div>
+              </div>
+
+              <div class="form-group mb-4 register-input-group">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                  <input type="password" class="form-control" name="password" placeholder="Create a password" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-danger w-100 mb-3 register-btn">Register</button>
+              <div class="text-center register-divider">
+                <a class="btn btn-outline-light btn-block" href="/auth/google" role="button">
+                  <img class="fab me-2" src="images/google-icon.png" alt="google-icon">Sign up with Google
+
+                </a>
+              </div>
+            </form>
+
+            <div class="text-center mt-3 register-footer">
+              <p class="mb-0">Already have an account? <a href="/login">Login here</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('partials/footer') %>
