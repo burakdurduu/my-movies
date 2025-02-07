@@ -24,7 +24,11 @@
       </button>
     </form>
     <div class="ml-auto">
-      <a class="btn btn-gold" href="/register" role="button">Register</a>
-      <a class="btn btn-gold" href="/login" role="button">Login</a>
+      <% if (!locals.user) { %>
+        <a class="btn btn-gold" href="/register" role="button">Register</a>
+        <a class="btn btn-gold" href="/login" role="button">Login</a>
+        <% } else {%>
+          <a class="btn btn-gold" href="/logout" role="button">Logout</a>
+          <% } %>
     </div>
   </nav>
