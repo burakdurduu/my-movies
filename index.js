@@ -12,6 +12,7 @@ import "dotenv/config";
 const app = express();
 const port = process.env.PORT || 3000;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const GOOGLE_PROJECT_NAME = process.env.PROJECT_NAME;
 const saltRounds = Number(process.env.SALT);
 
 app.use(
@@ -216,7 +217,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:5431/auth/google/secrets",
+      callbackURL: `https://my-movies-76a1.onrender.com/auth/google/${GOOGLE_PROJECT_NAME}`,
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     async (accessToken, refreshToken, profile, cb) => {
