@@ -12,7 +12,7 @@ import "dotenv/config";
 const app = express();
 const port = process.env.PORT || 3000;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const GOOGLE_PROJECT_NAME = process.env.PROJECT_NAME;
+const GOOGLE_PROJECT_NAME = process.env.GOOGLE_PROJECT_NAME;
 const saltRounds = Number(process.env.SALT);
 
 app.use(
