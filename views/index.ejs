@@ -21,7 +21,7 @@
                       <div class="stars-filled" data-rating="<%= movie.vote_average %>">★★★★★</div>
                     </div>
                     <span class="text-light ms-1">
-                      <%= movie.vote_average %>/10
+                      <%= movie.vote_average ? movie.vote_average.toFixed(1) : movie.vote_average %>/10
                     </span>
                   </div>
                   <p class="text-info small mt-1">
@@ -32,8 +32,8 @@
               <form class="btn-container" method="POST">
                 <input type="hidden" name="movieId" value="<%= movie.id %>">
                 <button class="btn btn-outline-info btn-sm" formaction="/details">Details</button>
-                <button class="btn btn-gold btn-sm btn-edit" type="button">Edit</button>
-                <button class="btn btn-outline-danger btn-sm" formaction="/delete">Delete</button>
+                <!-- <button class="btn btn-gold btn-sm btn-edit" type="button">Edit</button> -->
+                <!-- <button class="btn btn-outline-danger btn-sm" formaction="/delete">Delete</button> -->
               </form>
             </div>
             <div class="card-back">

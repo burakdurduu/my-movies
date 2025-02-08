@@ -38,8 +38,20 @@ const db = new Pool({
 db.connect();
 
 app.get("/", async (req, res) => {
-  const result = await db.query("SELECT * FROM movies;");
-  res.render("index.ejs", { movies: result.rows, user: req.isAuthenticated() });
+  try {
+    const result = await axios.get(
+      "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc",
+      {
+        headers: {
+          Authorization: `Bearer ${TMDB_API_KEY}`,
+        },
+      }
+    );
+    const movies = result.data.results;
+    res.render("index.ejs", { movies, user: req.isAuthenticated() });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 });
 
 app.get("/login", (req, res) => {
