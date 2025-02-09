@@ -154,6 +154,7 @@ body {
   padding: 0.2rem 0.5rem;
   transition: all 0.2s;
   font-size: 0.75rem;
+  max-height: 25px;
 }
 
 .btn-outline-info:hover,
@@ -169,15 +170,10 @@ body {
   border: none;
 }
 
-.btn-edit {
+/* .btn-add-watchlist {
   padding: 0.2rem 0.5rem;
   font-size: 0.75rem;
-  width: 50px;
-}
-
-.btn-add {
-  width: 50px;
-}
+} */
 
 .movie-grid {
   display: grid;

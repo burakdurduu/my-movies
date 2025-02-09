@@ -54,6 +54,20 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/watchlist", (req, res) => {
+  try {
+    const result = db.query(
+      "SELECT * FROM users JOIN movies ON users.email = $1;",
+      [req.user.email]
+    );
+    console.log(result.rows);
+    res.render("watchlist.ejs", { movies: result.rows });
+  } catch (err) {
+    console.log(err);
+    res.redirect("/login");
+  }
+});
+
 app.get("/login", (req, res) => {
   res.render("login.ejs", { user: req.isAuthenticated() });
 });
@@ -144,10 +158,10 @@ app.post("/delete", async (req, res) => {
   const id = req.body.movieId;
   try {
     await db.query("DELETE FROM movies WHERE id = $1", [id]);
-    res.redirect("/");
+    res.redirect("/watchlist");
   } catch (err) {
     console.log(err);
-    res.redirect("/");
+    res.redirect("/watchlist");
   }
 });
 
