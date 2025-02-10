@@ -61,7 +61,10 @@ app.get("/watchlist", async (req, res) => {
         "SELECT users.email, movies.* FROM users JOIN movies ON users.id = user_id WHERE email = $1",
         [req.user.email]
       );
-      res.render("watchlist.ejs", { movies: result.rows });
+      res.render("watchlist.ejs", {
+        movies: result.rows,
+        user: req.isAuthenticated(),
+      });
     } catch (err) {
       console.log(err);
     }
