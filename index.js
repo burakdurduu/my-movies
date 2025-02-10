@@ -54,16 +54,18 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/watchlist", (req, res) => {
-  try {
-    const result = db.query(
-      "SELECT * FROM users JOIN movies ON users.email = $1;",
-      [req.user.email]
-    );
-    console.log(result.rows);
-    res.render("watchlist.ejs", { movies: result.rows });
-  } catch (err) {
-    console.log(err);
+app.get("/watchlist", async (req, res) => {
+  if (req.isAuthenticated()) {
+    try {
+      const result = await db.query(
+        "SELECT users.email, movies.* FROM users JOIN movies ON users.id = user_id WHERE email = $1",
+        [req.user.email]
+      );
+      res.render("watchlist.ejs", { movies: result.rows });
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
     res.redirect("/login");
   }
 });
@@ -110,23 +112,34 @@ app.post(
 
 app.post("/add", async (req, res) => {
   const movieData = JSON.parse(req.body.movieData);
-  try {
-    await db.query(
-      "INSERT INTO movies (title, poster_path, release_date, overview, vote_average, vote_count) VALUES ($1, $2, $3, $4, $5, $6);",
-      [
-        movieData.title,
-        movieData.poster_path,
-        movieData.release_date.split("-")[0],
-        movieData.overview,
-        movieData.vote_average.toFixed(1),
-        movieData.vote_count,
-      ]
-    );
-    console.log("Added Movie:", movieData.title);
-    res.redirect("/");
-  } catch (err) {
-    console.log(err);
-    res.redirect("/");
+  if (req.isAuthenticated()) {
+    try {
+      const result = await db.query(
+        "SELECT id, email FROM users WHERE email = $1",
+        [req.user.email]
+      );
+      const current_user_id = result.rows[0].id;
+
+      await db.query(
+        "INSERT INTO movies (title, poster_path, release_date, overview, vote_average, vote_count, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7);",
+        [
+          movieData.title,
+          movieData.poster_path,
+          movieData.release_date.split("-")[0],
+          movieData.overview,
+          movieData.vote_average.toFixed(1),
+          movieData.vote_count,
+          current_user_id,
+        ]
+      );
+      console.log("Added Movie:", movieData.title);
+      res.redirect("/watchlist");
+    } catch (err) {
+      console.log(err);
+      res.redirect("/");
+    }
+  } else {
+    res.redirect("/login");
   }
 });
 
