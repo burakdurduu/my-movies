@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "../css/NavBar.css";
 
 function Navbar() {
   return (
@@ -52,18 +51,18 @@ function Navbar() {
               </button>
             </div>
           </form>
-          <div class="nav-buttons">
-            <Link to="/login" class="btn nav-btn">
-              <i class="fas fa-sign-in-alt"></i> Login
+          <div className="nav-buttons">
+            <Link to="/login" className="btn nav-btn">
+              <i className="fas fa-sign-in-alt"></i> Login
             </Link>
-            <Link to="/register" class="btn nav-btn">
-              <i class="fas fa-user-plus"></i> Register
+            <Link to="/register" className="btn nav-btn">
+              <i className="fas fa-user-plus"></i> Register
             </Link>
-            <Link to="/profile" class="btn nav-btn">
-              <i class="fas fa-user"></i> Profile
+            <Link to="/profile" className="btn nav-btn">
+              <i className="fas fa-user"></i> Profile
             </Link>
-            <Link to="/logout" class="btn nav-btn">
-              <i class="fas fa-sign-out-alt"></i> Logout
+            <Link to="/logout" className="btn nav-btn">
+              <i className="fas fa-sign-out-alt"></i> Logout
             </Link>
           </div>
         </div>
