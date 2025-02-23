@@ -26,7 +26,7 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/popular">
+              <Link className="nav-link" to="/">
                 Popular
               </Link>
             </li>
@@ -55,8 +55,8 @@ function Navbar() {
             <Link to="/login" className="btn nav-btn">
               <i className="fas fa-sign-in-alt"></i> Login
             </Link>
-            <Link to="/register" className="btn nav-btn">
-              <i className="fas fa-user-plus"></i> Register
+            <Link to="/signup" className="btn nav-btn">
+              <i className="fas fa-user-plus"></i> Sign Up
             </Link>
             <Link to="/profile" className="btn nav-btn">
               <i className="fas fa-user"></i> Profile
