@@ -7,7 +7,9 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
 import session from "express-session";
-import "dotenv/config";
+import dotenv from "dotenv";
+
+dotenv.config({ path: "../.env" });
 
 const app = express();
 const port = process.env.PORT || 3000;
