@@ -1,0 +1,26 @@
+{
+  "name": "my-movies",
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.4.1",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "prisma": "^6.4.1"
+  },
+  "devDependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.9"
+  }
+}
