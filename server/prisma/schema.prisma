@@ -30,6 +30,6 @@ model Movie {
   vote_average Decimal
   vote_count   Int
 
-  user_id String
-  user    User @relation(fields: [user_id], references: [id], name: "UserMovies")
+  user_id String?
+  user    User? @relation(fields: [user_id], references: [id], name: "UserMovies")
 }
