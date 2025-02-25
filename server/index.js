@@ -13,7 +13,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
-app.use("/movies", movieRoutes);
+app.use("/api/movie", movieRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is runnig on port: ${PORT}`);

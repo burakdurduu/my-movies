@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import useSignup from "../hooks/useSignup";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleSingUp = (e) => {
+  const { loading, signup } = useSignup();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    signup(inputs);
   };
 
   return (
@@ -23,7 +29,7 @@ const SignUp = () => {
                   Start Your Movie Journey 🍿
                 </p>
 
-                <form onSubmit={handleSingUp}>
+                <form onSubmit={handleSubmit}>
                   <div className="form-group mb-3 register-input-group">
                     <label htmlFor="email" className="form-label">
                       Email
@@ -37,11 +43,13 @@ const SignUp = () => {
                         className="form-control"
                         name="username"
                         id="email"
-                        value={email}
+                        value={inputs.email}
                         placeholder="Enter your email"
                         autoComplete="off"
                         required
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) =>
+                          setInputs({ ...inputs, email: e.target.value })
+                        }
                       />
                     </div>
                   </div>
@@ -59,19 +67,22 @@ const SignUp = () => {
                         className="form-control"
                         name="password"
                         id="password"
-                        value={password}
+                        value={inputs.password}
                         placeholder="Create a password"
                         autoComplete="off"
                         required
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) =>
+                          setInputs({ ...inputs, password: e.target.value })
+                        }
                       />
                     </div>
                   </div>
                   <button
                     type="submit"
                     className="btn btn-danger w-100 mb-3 register-btn"
+                    disabled={loading}
                   >
-                    Sign Up
+                    {loading ? "Loading..." : "Sign Up"}
                   </button>
                   <div className="text-center register-divider">
                     <a

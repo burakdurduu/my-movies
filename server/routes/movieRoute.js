@@ -5,5 +5,5 @@ import { addFavorites, getFavorites } from "../controller/movieController.js";
 const router = express.Router();
 
 router.post("/add", protectRoute, addFavorites);
-router.get("/get", protectRoute, getFavorites);
+router.get("/favorites", protectRoute, getFavorites);
 export default router;

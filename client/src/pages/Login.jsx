@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../hooks/useLogin";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleLogin = (e) => {
+  const { loading, login } = useLogin();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    login(inputs.email, inputs.password);
   };
 
   return (
@@ -19,7 +25,7 @@ function Login() {
               <p className="text-center mb-4 auth-subtitle">
                 Your Collection Awaits 🍿
               </p>
-              <form onSubmit={handleLogin}>
+              <form onSubmit={handleSubmit}>
                 <div className="form-group mb-3 auth-input-group">
                   <label htmlFor="email" className="form-label">
                     Email
@@ -33,11 +39,13 @@ function Login() {
                       className="form-control"
                       name="username"
                       id="email"
-                      value={email}
+                      value={inputs.email}
                       placeholder="Enter your email"
                       autoComplete="off"
                       required
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) =>
+                        setInputs({ ...inputs, email: e.target.value })
+                      }
                     />
                   </div>
                 </div>
@@ -55,16 +63,22 @@ function Login() {
                       className="form-control"
                       name="password"
                       id="password"
-                      value={password}
+                      value={inputs.password}
                       placeholder="Enter your password"
                       autoComplete="off"
                       required
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) =>
+                        setInputs({ ...inputs, password: e.target.value })
+                      }
                     />
                   </div>
                 </div>
-                <button type="submit" className="btn auth-btn w-100 mb-3">
-                  Login
+                <button
+                  type="submit"
+                  className="btn auth-btn w-100 mb-3"
+                  disabled={loading}
+                >
+                  {loading ? "Loading..." : "Login"}
                 </button>
                 <div className="text-center auth-divider">
                   <a
@@ -84,7 +98,7 @@ function Login() {
 
               <div className="text-center mt-3 auth-footer">
                 <p className="mb-0">
-                  Don't have an account? <Link to="/signup">Sing Up now</Link>
+                  Don`t have an account? <Link to="/signup">Sing Up now</Link>
                 </p>
               </div>
             </div>

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import LogoutButton from "./navbar/LogoutButton";
+import { useAuthContext } from "../context/AuthContext";
 
 function Navbar() {
+  const { authUser } = useAuthContext();
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
       <div className="container">
@@ -52,18 +55,23 @@ function Navbar() {
             </div>
           </form>
           <div className="nav-buttons">
-            <Link to="/login" className="btn nav-btn">
-              <i className="fas fa-sign-in-alt"></i> Login
-            </Link>
-            <Link to="/signup" className="btn nav-btn">
-              <i className="fas fa-user-plus"></i> Sign Up
-            </Link>
-            <Link to="/profile" className="btn nav-btn">
-              <i className="fas fa-user"></i> Profile
-            </Link>
-            <Link to="/logout" className="btn nav-btn">
-              <i className="fas fa-sign-out-alt"></i> Logout
-            </Link>
+            {!authUser ? (
+              <>
+                <Link to="/login" className="btn nav-btn">
+                  <i className="fas fa-sign-in-alt"></i> Login
+                </Link>
+                <Link to="/signup" className="btn nav-btn">
+                  <i className="fas fa-user-plus"></i> Sign Up
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/profile" className="btn nav-btn">
+                  <i className="fas fa-user"></i> Profile
+                </Link>
+                <LogoutButton />
+              </>
+            )}
           </div>
         </div>
       </div>
