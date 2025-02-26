@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import LogoutButton from "./navbar/LogoutButton";
+import LogoutButton from "./common/LogoutButton";
 import { useAuthContext } from "../context/AuthContext";
 
 function Navbar() {

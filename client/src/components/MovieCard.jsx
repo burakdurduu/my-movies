@@ -1,4 +1,13 @@
+import useAddFavorites from "../hooks/useAddFavorites";
+
 function MovieCard({ movie }) {
+  const { loading, add } = useAddFavorites();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    add(movie);
+  };
+
   return (
     <div className="movie-card">
       <img
@@ -26,9 +35,10 @@ function MovieCard({ movie }) {
           <button
             className="btn btn-gold btn-sm btn-add-watchlist"
             type="submit"
-            formAction="/add"
+            onClick={handleClick}
+            hidden={loading}
           >
-            Add Watchlist
+            Add Favorites
           </button>
           {/* <button className="btn btn-outline-danger btn-sm" formAction="/delete">Delete</button> */}
         </form>

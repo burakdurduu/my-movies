@@ -6,4 +6,5 @@ const router = express.Router();
 
 router.post("/add", protectRoute, addFavorites);
 router.get("/favorites", protectRoute, getFavorites);
+
 export default router;

@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
 import { getPopularMovies } from "../services/api";
 
 function Home() {
   const [movies, setMovies] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadPopularMovies = async () => {
@@ -14,9 +12,6 @@ function Home() {
         setMovies(popularMovies);
       } catch (err) {
         console.log(err);
-        setError("Failed to load movies...");
-      } finally {
-        setLoading(false);
       }
     };
     loadPopularMovies();

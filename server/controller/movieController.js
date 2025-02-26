@@ -1,7 +1,7 @@
 import prisma from "../db/prisma.js";
 
 export const addFavorites = async (req, res) => {
-  const movieData = req.body.movieData;
+  const { movieData } = req.body;
   const authUserId = req.user.id;
   try {
     const favoriteMovie = await prisma.movie.create({
@@ -31,7 +31,7 @@ export const getFavorites = async (req, res) => {
     const favoriteMovies = await prisma.movie.findMany({
       where: { user_id: authUserId },
     });
-    res.status(200).json({ movies: favoriteMovies });
+    res.status(200).json({ results: favoriteMovies });
   } catch (error) {
     console.log("Error in getFavorites controller", error.message);
     return res.status(500).json({ error: "Internal Server Error" });

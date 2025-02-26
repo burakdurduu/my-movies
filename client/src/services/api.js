@@ -16,3 +16,18 @@ export const getPopularMovies = async () => {
   const movies = data.results;
   return movies;
 };
+
+export const getFavoriteMovies = async () => {
+  const url = `/api/movie/favorites`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+    },
+  };
+
+  const res = await fetch(url, options);
+  const data = await res.json();
+  const movies = data.results;
+  return movies;
+};
