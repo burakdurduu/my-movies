@@ -37,3 +37,17 @@ export const getFavorites = async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const deleteFavoriteMovie = async (req, res) => {
+  const { movieId } = req.body;
+  try {
+    const deletedMovie = await prisma.movie.delete({ where: { id: movieId } });
+    console.log("Deleted Movie:", deletedMovie);
+    res
+      .status(201)
+      .json({ message: "Movie deleted favorites", data: deletedMovie });
+  } catch (error) {
+    console.log("Error in deleteFavorites controller", error.message);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};

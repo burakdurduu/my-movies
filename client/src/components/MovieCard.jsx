@@ -1,11 +1,28 @@
-import useAddFavorites from "../hooks/useAddFavorites";
+import { useAuthContext } from "../context/AuthContext";
+import { useMovieContext } from "../context/MovieContext";
+import { useNavigate } from "react-router-dom";
 
-function MovieCard({ movie }) {
-  const { loading, add } = useAddFavorites();
+function MovieCard({ movie, isFavoritesPage }) {
+  const { authUser } = useAuthContext();
+  const { handleDeleteMovie, handleAddMovie, loading } = useMovieContext();
+  const navigate = useNavigate();
 
-  const handleClick = (e) => {
+  const handleAdd = (e) => {
     e.preventDefault();
-    add(movie);
+    if (authUser) {
+      handleAddMovie(movie);
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    if (authUser) {
+      handleDeleteMovie(movie.id);
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -29,18 +46,39 @@ function MovieCard({ movie }) {
         <form className="btn-container" method="POST">
           <input type="hidden" name="movieId" value={movie.id} />
           <input type="hidden" name="movieData" value={JSON.stringify(movie)} />
-          <button className="btn btn-outline-info btn-sm" formAction="/details">
-            Details
-          </button>
-          <button
-            className="btn btn-gold btn-sm btn-add-watchlist"
-            type="submit"
-            onClick={handleClick}
-            hidden={loading}
-          >
-            Add Favorites
-          </button>
-          {/* <button className="btn btn-outline-danger btn-sm" formAction="/delete">Delete</button> */}
+          {isFavoritesPage ? (
+            <>
+              <button
+                className="btn btn-outline-info btn-sm"
+                formAction="/details"
+              >
+                Details
+              </button>
+              <button
+                className="btn btn-outline-danger btn-sm"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="btn btn-outline-info btn-sm"
+                formAction="/details"
+              >
+                Details
+              </button>
+              <button
+                className="btn btn-gold btn-sm btn-add-watchlist"
+                type="submit"
+                onClick={handleAdd}
+                hidden={loading}
+              >
+                Add Favorites
+              </button>
+            </>
+          )}
         </form>
       </div>
     </div>

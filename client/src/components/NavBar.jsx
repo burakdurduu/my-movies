@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import LogoutButton from "./common/LogoutButton";
 import { useAuthContext } from "../context/AuthContext";
+import NavSearch from "./common/navSearch";
+import { useSearchContext } from "../context/SearchContext";
 
 function Navbar() {
   const { authUser } = useAuthContext();
+  const { updateQuery } = useSearchContext();
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" onClick={() => updateQuery("")}>
           <i className="fa-solid fa-film"></i>
           <span>My Movies</span>
         </Link>
@@ -24,36 +27,21 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
+              <Link className="nav-link" to="/" onClick={() => updateQuery("")}>
                 Popular
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/favorites">
+              <Link
+                className="nav-link"
+                to="/favorites"
+                onClick={() => updateQuery("")}
+              >
                 Favorites
               </Link>
             </li>
           </ul>
-
-          <form className="d-flex search-form me-3">
-            <div className="input-group">
-              <input
-                className="form-control search-input"
-                type="search"
-                name="movie_name"
-                placeholder="Search movies..."
-                required
-              />
-              <button className="btn search-btn" type="button">
-                <i className="fas fa-search"></i>
-              </button>
-            </div>
-          </form>
+          <NavSearch />
           <div className="nav-buttons">
             {!authUser ? (
               <>

@@ -21,17 +21,17 @@ function Footer() {
 
         <div className="row justify-content-center">
           <div className="text-light small mb-0">
-            © 2025 Burak Durdu |
+            © 2025 Burak Durdu |{" "}
             <Link to="https://www.themoviedb.org/" className="text-light">
-              TMDB
+              TMDB{" "}
             </Link>
-            •
+            •{" "}
             <Link to="https://getbootstrap.com/" className="text-light">
-              Bootstrap
+              Bootstrap{" "}
             </Link>
-            •
+            •{" "}
             <Link to="https://fontawesome.com/" className="text-light">
-              Font Awesome
+              Font Awesome{" "}
             </Link>
           </div>
           <p className="text-gold small mt-1">

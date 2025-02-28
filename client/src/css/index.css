@@ -256,6 +256,12 @@ body {
   font-size: 11px;
 }
 
+.text-not-found {
+  color: var(--gold);
+  text-align: center;
+  margin-top: 4rem;
+}
+
 .search-container {
   background: rgba(26, 26, 26, 0.95);
   padding: 2rem;
