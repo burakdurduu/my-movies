@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import LogoutButton from "./common/LogoutButton";
 import { useAuthContext } from "../context/AuthContext";
-import NavSearch from "./common/navSearch";
+import NavSearch from "./common/NavSearch.jsx";
 import { useSearchContext } from "../context/SearchContext";
 
 function Navbar() {
