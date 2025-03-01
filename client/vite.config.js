@@ -11,7 +11,10 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         "/api": {
-          target: isProduction ? "" : "http://localhost:3000",
+          target: isProduction
+            ? "https://my-movies-76a1.onrender.com/"
+            : "http://localhost:3000",
+          changeOrigin: true,
         },
       },
     },
