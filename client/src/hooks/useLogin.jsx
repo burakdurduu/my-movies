@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
+import { useMovieContext } from "../context/MovieContext";
 
 const useLogin = () => {
   const [loading, setLoading] = useState();
   const { setAuthUser } = useAuthContext();
+  const { refreshFavorites } = useMovieContext();
 
   const login = async (email, password) => {
     try {
@@ -16,6 +18,7 @@ const useLogin = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       setAuthUser(data);
+      await refreshFavorites();
     } catch (error) {
       console.error(error);
     } finally {

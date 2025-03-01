@@ -31,6 +31,7 @@ function MovieCard({ movie, isFavoritesPage }) {
         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
         className="movie-cover"
         alt={movie.title}
+        onError={(e) => (e.target.src = "/images/no-poster.jpg")}
       />
       <div className="movie-content">
         <h3 className="text-gold fs-5 mb-1">

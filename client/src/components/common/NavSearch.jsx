@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useSearchContext } from "../../context/SearchContext";
+import { useNavigate } from "react-router-dom";
 
 const NavSearch = () => {
   const { updateQuery } = useSearchContext();
   const [value, setValue] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     updateQuery(value);
     setValue("");
+    navigate("/");
   };
   return (
     <form className="d-flex search-form me-3" onSubmit={handleSubmit}>

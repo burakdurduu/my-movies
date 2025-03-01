@@ -4,7 +4,9 @@
   "main": "server/index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server/index.js"
+    "dev": "nodemon server/index.js",
+    "build": "npm install && npm install --prefix client && prisma generate --schema=./server/prisma/schema.prisma && npm run build --prefix client",
+    "start": "node server/index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,9 +16,12 @@
     "@prisma/client": "^6.4.1",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0",
     "prisma": "^6.4.1"
   },
   "devDependencies": {
