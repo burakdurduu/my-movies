@@ -1,7 +1,13 @@
-import prisma from "../db/prisma.js";
 import bcryptjs from "bcryptjs";
+import crypto from "crypto";
+import prisma from "../db/prisma.js";
 import generateToken from "../utils/generateToken.js";
-import { sendVerificationEmail, sendWelcomeEmail } from "../mailtrap/emails.js";
+import {
+  sendPasswordResetEmail,
+  sendResetSuccessEmail,
+  sendVerificationEmail,
+  sendWelcomeEmail,
+} from "../mailtrap/emails.js";
 
 export const signup = async (req, res) => {
   const { email, password, name } = req.body;
@@ -94,8 +100,8 @@ export const getMe = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
     res.status(200).json({
-      id: user.id,
-      email: user.email,
+      ...user,
+      password: undefined,
     });
   } catch (error) {
     console.log("Error in getMe controller ", error.message);
@@ -137,5 +143,82 @@ export const verifyEmail = async (req, res) => {
   } catch (error) {
     console.error("Error in verifyEmail controller ", error);
     return res.status(500).json({ message: "Email verification failed" });
+  }
+};
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      return res.status(400).json({ messager: "User not found" });
+    }
+
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    const resetTokenExpiresAt = new Date(Date.now() + 1 * 60 * 60 * 1000); // 1 hour
+
+    await prisma.user.update({
+      where: { email: email },
+      data: {
+        resetPasswordToken: resetToken,
+        resetPasswordExpiresAt: resetTokenExpiresAt,
+      },
+    });
+
+    await sendPasswordResetEmail(
+      user.email,
+      `${process.env.CLIENT_URL}/reset-password/${resetToken}`
+    );
+
+    res.status(200).json({ message: "Password reset link sent to your email" });
+  } catch (error) {
+    console.error("Error in forgotPassword controller ", error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    if (!password || typeof password !== "string") {
+      return res.status(400).json({ message: "Password is required" });
+    }
+
+    const user = await prisma.user.findFirst({
+      where: {
+        resetPasswordToken: token,
+        resetPasswordExpiresAt: { gt: new Date() },
+      },
+    });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "Invalid or expired reset token" });
+    }
+
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(password, salt);
+
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        password: hashedPassword,
+        resetPasswordToken: null,
+        resetPasswordExpiresAt: null,
+      },
+    });
+
+    sendResetSuccessEmail(user.email);
+
+    res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    console.log("Error in resetPassword controller ", error);
+    res.status(500).json({ message: error.message });
   }
 };
