@@ -3,6 +3,11 @@ import prisma from "../db/prisma.js";
 export const addFavorites = async (req, res) => {
   const { movieData } = req.body;
   const authUserId = req.user.id;
+  console.log("Adding movie:", {
+    id: movieData.id,
+    tmdb_id: movieData.tmdb_id,
+    title: movieData.title,
+  });
   try {
     const favoriteMovie = await prisma.movie.create({
       data: {
@@ -12,6 +17,7 @@ export const addFavorites = async (req, res) => {
         overview: movieData.overview,
         vote_average: movieData.vote_average,
         vote_count: movieData.vote_count,
+        tmdb_id: String(movieData.tmdb_id || movieData.id),
         user_id: authUserId,
       },
     });

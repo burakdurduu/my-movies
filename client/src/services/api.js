@@ -63,10 +63,19 @@ export const addFavorites = async (movie) => {
   const res = await fetch("/api/movie/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ movieData: movie }),
+    body: JSON.stringify({
+      movieData: {
+        ...movie,
+        tmdb_id: JSON.stringify(movie.id),
+      },
+    }),
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.error);
   console.log("Movie added favorites", data);
   return data.data;
+};
+
+const isFavorite = (tmdbMovieId) => {
+  return favorites.some((movie) => movie.tmdb_id === tmdbMovieId);
 };

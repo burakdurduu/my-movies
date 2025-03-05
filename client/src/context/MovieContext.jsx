@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import {
   getFavoriteMovies,
   deleteFavorite,
@@ -6,65 +6,67 @@ import {
 } from "../services/api";
 
 const MovieContext = createContext();
-
 export const useMovieContext = () => useContext(MovieContext);
 
 export const MovieContextProvider = ({ children }) => {
-  const [favMovies, setFavMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
   const fetchFavorites = async () => {
-    setIsLoading(true);
-    setError(null);
     try {
       const favorites = await getFavoriteMovies();
-      setFavMovies(favorites);
+      setFavorites(favorites);
     } catch (error) {
-      setError(error.message);
       console.error("Failed to fetch favorites: ", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
-  const handleDeleteMovie = async (movieId) => {
+  const addToFavorites = async (movie) => {
     try {
-      await deleteFavorite(movieId);
-      setFavMovies((prevMovies) =>
-        prevMovies.filter((movie) => movie.id !== movieId)
-      );
-    } catch (error) {
-      console.error("Failed to delete movie: ", error);
-    }
-  };
-
-  const handleAddMovie = async (movie) => {
-    try {
-      const addedMovie = await addFavorites(movie);
-      setFavMovies((prevMovies) => [...prevMovies, addedMovie]);
+      const newFav = await addFavorites(movie);
+      setFavorites((prev) => [...prev, newFav]);
     } catch (error) {
       console.error("Failed to add movie: ", error);
     }
+  };
+
+  const removeFromFavorites = async (movieId) => {
+    try {
+      const favoriteMovie = favorites.find(
+        (movie) => String(movie.tmdb_id) === String(movieId)
+      );
+      if (!favoriteMovie) {
+        throw new Error("Movie not found in favorites");
+      }
+      await deleteFavorite(favoriteMovie.id);
+      setFavorites((prev) =>
+        prev.filter((movie) => movie.id !== favoriteMovie.id)
+      );
+    } catch (error) {
+      console.error("Failed to delete movie: ", error);
+      throw error;
+    }
+  };
+
+  const isFavorite = (tmdbMovieId) => {
+    if (!tmdbMovieId) return false;
+    return favorites.some(
+      (movie) => String(movie.tmdb_id) === String(tmdbMovieId)
+    );
   };
 
   useEffect(() => {
     fetchFavorites();
   }, []);
 
+  const value = {
+    favorites,
+    addToFavorites,
+    removeFromFavorites,
+    isFavorite,
+    refreshFavorites: fetchFavorites,
+  };
+
   return (
-    <MovieContext.Provider
-      value={{
-        favMovies,
-        isLoading,
-        error,
-        setFavMovies,
-        refreshFavorites: fetchFavorites,
-        handleDeleteMovie,
-        handleAddMovie,
-      }}
-    >
-      {children}
-    </MovieContext.Provider>
+    <MovieContext.Provider value={value}>{children}</MovieContext.Provider>
   );
 };

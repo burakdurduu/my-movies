@@ -2,40 +2,61 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer>
-      <div className="container text-center">
-        <div className="social-icons mb-4">
-          <Link to="https://www.instagram.com" className="text-gold">
-            <i className="fab fa-instagram fa-lg"></i>
+    <footer className="bg-gray-900 py-8 mt-auto">
+      <div className="container mx-auto px-4 text-center">
+        <div className="flex justify-center space-x-6 mb-6">
+          <Link
+            to="https://www.instagram.com"
+            className="text-yellow-500 hover:text-yellow-400 transition-colors duration-300"
+          >
+            <i className="fab fa-instagram text-xl"></i>
           </Link>
-          <Link to="https://www.github.com" className="text-gold">
-            <i className="fa-brands fa-github"></i>
+          <Link
+            to="https://www.github.com"
+            className="text-yellow-500 hover:text-yellow-400 transition-colors duration-300"
+          >
+            <i className="fa-brands fa-github text-xl"></i>
           </Link>
-          <Link to="https://www.linkedin.com" className="text-gold">
-            <i className="fab fa-linkedin fa-lg"></i>
+          <Link
+            to="https://www.linkedin.com"
+            className="text-yellow-500 hover:text-yellow-400 transition-colors duration-300"
+          >
+            <i className="fab fa-linkedin text-xl"></i>
           </Link>
-          <Link to="https://www.x.com" className="text-gold">
-            <i className="fa-brands fa-x-twitter"></i>
+          <Link
+            to="https://www.x.com"
+            className="text-yellow-500 hover:text-yellow-400 transition-colors duration-300"
+          >
+            <i className="fa-brands fa-x-twitter text-xl"></i>
           </Link>
         </div>
 
-        <div className="row justify-content-center">
-          <div className="text-light small mb-0">
+        <div className="flex flex-col items-center">
+          <div className="text-gray-400 text-sm">
             © 2025 Burak Durdu |{" "}
-            <Link to="https://www.themoviedb.org/" className="text-light">
+            <Link
+              to="https://www.themoviedb.org/"
+              className="text-gray-400 hover:text-white transition-colors duration-300"
+            >
               TMDB{" "}
             </Link>
             •{" "}
-            <Link to="https://getbootstrap.com/" className="text-light">
-              Bootstrap{" "}
+            <Link
+              to="https://tailwindcss.com/"
+              className="text-gray-400 hover:text-white transition-colors duration-300"
+            >
+              Tailwind CSS{" "}
             </Link>
             •{" "}
-            <Link to="https://fontawesome.com/" className="text-light">
+            <Link
+              to="https://fontawesome.com/"
+              className="text-gray-400 hover:text-white transition-colors duration-300"
+            >
               Font Awesome{" "}
             </Link>
           </div>
-          <p className="text-gold small mt-1">
-            <i className="fa-solid fa-film"> MM</i>
+          <p className="text-yellow-500 text-sm mt-2 flex items-center">
+            <i className="fa-solid fa-film mr-1"></i> MM
           </p>
         </div>
       </div>
