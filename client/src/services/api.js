@@ -75,7 +75,3 @@ export const addFavorites = async (movie) => {
   console.log("Movie added favorites", data);
   return data.data;
 };
-
-const isFavorite = (tmdbMovieId) => {
-  return favorites.some((movie) => movie.tmdb_id === tmdbMovieId);
-};

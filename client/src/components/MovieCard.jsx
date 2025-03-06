@@ -26,7 +26,11 @@ function MovieCard({ movie }) {
     <div className="relative h-full flex flex-col rounded-lg overflow-hidden bg-[#1a1a1a] transition-transform duration-200 hover:-translate-y-1">
       <div className="relative aspect-[2/3] w-full">
         <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          src={
+            movie.poster_path && movie.poster_path !== "no-poster"
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+              : "./images/no-poster.jpg"
+          }
           alt={movie.title}
           className="w-full h-full object-cover"
         />

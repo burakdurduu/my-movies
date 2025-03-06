@@ -48,7 +48,7 @@ export const MovieContextProvider = ({ children }) => {
   };
 
   const isFavorite = (tmdbMovieId) => {
-    if (!tmdbMovieId) return false;
+    if (!tmdbMovieId || !favorites) return false;
     return favorites.some(
       (movie) => String(movie.tmdb_id) === String(tmdbMovieId)
     );

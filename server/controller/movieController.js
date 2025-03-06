@@ -12,7 +12,7 @@ export const addFavorites = async (req, res) => {
     const favoriteMovie = await prisma.movie.create({
       data: {
         title: movieData.title,
-        poster_path: movieData.poster_path,
+        poster_path: movieData.poster_path || "no-poster",
         release_date: movieData.release_date,
         overview: movieData.overview,
         vote_average: movieData.vote_average,
