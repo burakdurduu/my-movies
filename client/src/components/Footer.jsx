@@ -1,8 +1,9 @@
+import { Film } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="bg-gray-900 py-8 mt-auto">
+    <footer className="bg-gray-900 py-8 mt-20 w-full">
       <div className="container mx-auto px-4 text-center">
         <div className="flex justify-center space-x-6 mb-6">
           <Link
@@ -56,7 +57,7 @@ function Footer() {
             </Link>
           </div>
           <p className="text-yellow-500 text-sm mt-2 flex items-center">
-            <i className="fa-solid fa-film mr-1"></i> MM
+            <Film className="size-4 mr-2" /> MM
           </p>
         </div>
       </div>

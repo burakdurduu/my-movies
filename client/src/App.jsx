@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import SignUpPage from "./pages/SignUpPage";
 import { useAuthContext } from "./context/AuthContext";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
     return <h1>Loading</h1>;
   }
   return (
-    <div className="min-h-screen font-sans text-gray-100 bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#302b63]">
+    <div className="min-h-screen text-gray-100 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#302b63] flex flex-col items-center justify-center relative overflow-hidden">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -23,7 +23,7 @@ function App() {
         />
         <Route
           path="/signup"
-          element={!authUser ? <SignUp /> : <Navigate to={"/"} />}
+          element={!authUser ? <SignUpPage /> : <Navigate to={"/"} />}
         />
         <Route
           path="/login"
