@@ -39,7 +39,7 @@ function Navbar() {
           <div>
             <NavSearch />
           </div>
-          <div className="hidden md:flex items-center justify-center text-center  space-x-2 absolute right-0 mr-4">
+          <div className="hidden md:flex items-center justify-center text-center space-x-2 absolute right-0 mr-4">
             {!authUser ? (
               <>
                 <Link
@@ -69,10 +69,10 @@ function Navbar() {
           </div>
         </div>
 
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex items-center focus:outline-none focus:ring-0 focus-visible:outline-none">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            className="text-gray-300 hover:text-yellow-500 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-white"
           >
             <span className="sr-only">Open main menu</span>
             {!isOpen ? <Menu /> : "X"}
@@ -88,7 +88,7 @@ function Navbar() {
             onClick={() => {
               setIsOpen(false);
             }}
-            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            className="text-gray-300 hover:text-yellow-500 block px-3 py-2 rounded-md text-base font-medium"
           >
             Popular
           </Link>
@@ -97,29 +97,26 @@ function Navbar() {
             onClick={() => {
               setIsOpen(false);
             }}
-            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            className="text-gray-300 hover:text-yellow-500 block px-3 py-2 rounded-md text-base font-medium"
           >
             Favorites
           </Link>
-          <div className="py-2">
-            <NavSearch />
-          </div>
           <div className="space-y-2">
             {!authUser ? (
               <>
                 <Link
                   to="/login"
                   onClick={() => setIsOpen(false)}
-                  className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium border border-gray-700"
+                  className="text-gray-300 hover:text-yellow-500 block px-3 py-2 rounded-md text-base text-center font-medium border border-gray-700"
                 >
-                  <i className="fas fa-sign-in-alt mr-2"></i>Login
+                  Login
                 </Link>
                 <Link
                   to="/signup"
                   onClick={() => setIsOpen(false)}
-                  className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium border border-gray-700"
+                  className="text-gray-300 hover:text-yellow-500 block px-3 py-2 rounded-md text-base text-center font-medium border border-gray-700"
                 >
-                  <i className="fas fa-user-plus mr-2"></i>Sign Up
+                  Sign Up
                 </Link>
               </>
             ) : (
@@ -129,7 +126,7 @@ function Navbar() {
                   onClick={() => setIsOpen(false)}
                   className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium border border-gray-700"
                 >
-                  <i className="fas fa-user mr-2"></i>Profile
+                  Profile
                 </Link>
                 <LogoutButton />
               </>

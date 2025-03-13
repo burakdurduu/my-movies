@@ -7,7 +7,7 @@ export const useSignup = () => {
   const { setAuthUser } = useAuthContext();
   const { refreshFavorites } = useMovieContext();
 
-  const signup = async (inputs) => {
+  const signup = async (email, password, name) => {
     try {
       setLoading(true);
       const res = await fetch("/api/auth/signup", {
@@ -15,7 +15,7 @@ export const useSignup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(inputs),
+        body: JSON.stringify({ email, password, name }),
       });
       const data = await res.json();
 

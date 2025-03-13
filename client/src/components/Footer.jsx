@@ -50,10 +50,10 @@ function Footer() {
             </Link>
             •{" "}
             <Link
-              to="https://fontawesome.com/"
+              to="https://lucide.dev/"
               className="text-gray-400 hover:text-white transition-colors duration-300"
             >
-              Font Awesome{" "}
+              Lucide{" "}
             </Link>
           </div>
           <p className="text-yellow-500 text-sm mt-2 flex items-center">
