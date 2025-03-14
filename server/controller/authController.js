@@ -7,7 +7,7 @@ import {
   sendResetSuccessEmail,
   sendVerificationEmail,
   sendWelcomeEmail,
-} from "../mailtrap/emails.js";
+} from "../nodemailer/emails.js";
 
 export const signup = async (req, res) => {
   const { email, password, name } = req.body;
@@ -40,7 +40,7 @@ export const signup = async (req, res) => {
     });
     if (newUser) {
       generateToken(newUser.id, res);
-      // await sendVerificationEmail(newUser.email, verificationToken);
+      await sendVerificationEmail(newUser.email, verificationToken);
 
       return res.status(201).json({
         message: "User created successfully",

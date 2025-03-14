@@ -28,6 +28,43 @@ export const VERIFICATION_EMAIL_TEMPLATE = `
 </html>
 `;
 
+export const WELCOME_EMAIL_TEMPLATE = ` 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Platform!</title>
+</head>
+<body
+    style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div style="background: linear-gradient(to right, #d4af37, #d4af37); padding: 20px; text-align: center;">
+        <h1 style="color: white; margin: 0;">Welcome to {{appName}}!</h1>
+    </div>
+    <div
+        style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <p>Hi {{userName}},</p>
+        <p>Welcome to {{appName}}! We're thrilled to have you on board. 🎉</p>
+        <p>Your account has been successfully created and is ready to use. Here's what you can do next:</p>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{{websiteUrl}}"
+                style="background-color: #d4af37; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                Go to Website
+            </a>
+        </div>
+
+        <p>Need help? Our support team is available 24/7 at <a href="mailto:{{supportEmail}}">Support Email</a></p>
+        <p>Happy exploring!</p>
+        <p>Best regards,<br>The {{appName}} Team</p>
+    </div>
+    <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
+        <p>This is an automated message, please do not reply to this email.</p>
+    </div>
+</body>
+</html> 
+`;
+
 export const PASSWORD_RESET_SUCCESS_TEMPLATE = `
 <!DOCTYPE html>
 <html lang="en">
