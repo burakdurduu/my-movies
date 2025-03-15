@@ -1,111 +1,81 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
+import Input from "../components/common/Input";
+import { Mail, Lock, Loader } from "lucide-react";
 
 function Login() {
-  const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const { loading, login } = useLogin();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(inputs.email, inputs.password);
+    login(email, password);
   };
 
   return (
-    <div className="container auth-container">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card auth-card shadow-lg">
-            <div className="card-body p-5">
-              <h1 className="text-center mb-4 auth-title">Welcome Back</h1>
-              <p className="text-center mb-4 auth-subtitle">
-                Your Collection Awaits 🍿
-              </p>
-              <form onSubmit={handleSubmit}>
-                <div className="form-group mb-3 auth-input-group">
-                  <label htmlFor="email" className="form-label">
-                    Email
-                  </label>
-                  <div className="input-group">
-                    <span className="input-group-text">
-                      <i className="fas fa-envelope"></i>
-                    </span>
-                    <input
-                      type="email"
-                      className="form-control"
-                      name="username"
-                      id="email"
-                      value={inputs.email}
-                      placeholder="Enter your email"
-                      autoComplete="off"
-                      required
-                      onChange={(e) =>
-                        setInputs({ ...inputs, email: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group mb-4 auth-input-group">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <div className="input-group">
-                    <span className="input-group-text">
-                      <i className="fas fa-lock"></i>
-                    </span>
-                    <input
-                      type="password"
-                      className="form-control"
-                      name="password"
-                      id="password"
-                      value={inputs.password}
-                      placeholder="Enter your password"
-                      autoComplete="off"
-                      required
-                      onChange={(e) =>
-                        setInputs({ ...inputs, password: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="btn auth-btn w-100 mb-3"
-                  disabled={loading}
-                >
-                  {loading ? "Loading..." : "Login"}
-                </button>
-                <div className="text-center auth-divider">
-                  <a
-                    className="btn btn-outline-light btn-block"
-                    href="/auth/google"
-                    role="button"
-                  >
-                    <img
-                      className="fab me-2"
-                      src="images/google-icon.png"
-                      alt="google-icon"
-                    />
-                    Sign in with Google
-                  </a>
-                </div>
-              </form>
-
-              <div className="text-center mt-3 auth-footer">
-                <p className="mb-0">
-                  Don`t have an account? <Link to="/signup">Sing Up now</Link>
-                </p>
-              </div>
-            </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2 }}
+      className="max-w-md w-full mt-20 bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
+    >
+      <div className="p-8">
+        <h2 className="text-3xl font-bolt mb-6 text-center bg-gradient-to-r from-yellow-500 to-yellow-300 text-transparent bg-clip-text">
+          Welcome Back
+        </h2>
+        <form onSubmit={handleSubmit}>
+          <Input
+            icon={Mail}
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            icon={Lock}
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <div className="flex items-center mb-6">
+            <Link
+              to="/forgot-password"
+              className="text-xs text-blue-500 hover:underline"
+            >
+              Forgot Password?
+            </Link>
           </div>
-        </div>
+          <motion.button
+            className="w-full py-3 px-4 bg-gradient-to-r from-green-500 to-green-600 text-white 
+						font-bold rounded-lg shadow-lg hover:from-green-600
+						hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+						 focus:ring-offset-gray-900 transition duration-200"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            type="submit"
+          >
+            {loading ? (
+              <Loader className="w-6 h-6 animate-spin mx-auto" />
+            ) : (
+              "Login"
+            )}
+          </motion.button>
+        </form>
       </div>
-    </div>
+      <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
+        <p className="text-sm text-gray-400">
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-yellow-500 hover:underline">
+            Sign Up
+          </Link>
+        </p>
+      </div>
+    </motion.div>
   );
 }
 
