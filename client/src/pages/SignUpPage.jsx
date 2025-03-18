@@ -17,7 +17,7 @@ const SignUpPage = () => {
     e.preventDefault();
     try {
       await signup(email, password, name);
-      navigate("/");
+      navigate("/verify-email");
     } catch (error) {
       console.error(error.message);
     }
@@ -66,6 +66,7 @@ const SignUpPage = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
+            disabled={loading}
           >
             {loading ? (
               <Loader className="w-6 h-6 animate-spin mx-auto" />

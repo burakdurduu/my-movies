@@ -6,6 +6,7 @@ import Favorites from "./pages/Favorites";
 import Login from "./pages/Login";
 import SignUpPage from "./pages/SignUpPage";
 import { useAuthContext } from "./context/AuthContext";
+import EmailVerificationPage from "./pages/EmailVerificationPage";
 
 function App() {
   const { authUser, isLoading } = useAuthContext();
@@ -30,6 +31,7 @@ function App() {
           element={!authUser ? <Login /> : <Navigate to={"/"} />}
         />
         <Route path="/profile" element={<Home />} />
+        <Route path="/verify-email" element={<EmailVerificationPage />} />
       </Routes>
       <Footer />
     </div>

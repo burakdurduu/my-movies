@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { useMovieContext } from "../context/MovieContext";
 
-export const useSignup = () => {
+const useSignup = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
   const { refreshFavorites } = useMovieContext();
