@@ -7,12 +7,11 @@ import Login from "./pages/Login";
 import SignUpPage from "./pages/SignUpPage";
 import { useAuthContext } from "./context/AuthContext";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-  const { authUser, isLoading } = useAuthContext();
-  if (isLoading) {
-    return <h1>Loading</h1>;
-  }
+  const { authUser } = useAuthContext();
+
   return (
     <div className="min-h-screen text-gray-100 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#302b63] flex flex-col items-center justify-center relative overflow-hidden">
       <Navbar />
@@ -33,6 +32,7 @@ function App() {
         <Route path="/profile" element={<Home />} />
         <Route path="/verify-email" element={<EmailVerificationPage />} />
       </Routes>
+      <Toaster />
       <Footer />
     </div>
   );
