@@ -1,16 +1,18 @@
-import { useAuthContext } from "../context/AuthContext";
 import { useMovieContext } from "../context/MovieContext";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
 
 function MovieCard({ movie }) {
-  const { authUser } = useAuthContext();
+  const { isAuthenticated } = useAuthStore();
   const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
   const navigate = useNavigate();
-  const favorite = authUser ? isFavorite(movie.tmdb_id || movie.id) : false;
+  const favorite = isAuthenticated
+    ? isFavorite(movie.tmdb_id || movie.id)
+    : false;
 
   function onFavoriteClick(e) {
     e.preventDefault();
-    if (authUser) {
+    if (isAuthenticated) {
       if (favorite) {
         const idToRemove = movie.tmdb_id ? movie.tmdb_id : movie.id;
         removeFromFavorites(idToRemove);

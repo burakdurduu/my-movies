@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import useLogin from "../hooks/useLogin";
+import { useAuthStore } from "../store/authStore";
 import Input from "../components/common/Input";
 import { Mail, Lock, Loader } from "lucide-react";
 
@@ -9,11 +9,11 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { loading, login } = useLogin();
+  const { login, isLoading, error } = useAuthStore();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
+    await login(email, password);
   };
 
   return (
@@ -50,6 +50,7 @@ function Login() {
               Forgot Password?
             </Link>
           </div>
+          {error && <p className="text-red-500 font-semibold mb-2">{error}</p>}
           <motion.button
             className="w-full py-3 px-4 bg-gradient-to-r from-green-500 to-green-600 text-white 
 						font-bold rounded-lg shadow-lg hover:from-green-600
@@ -59,7 +60,7 @@ function Login() {
             whileTap={{ scale: 0.98 }}
             type="submit"
           >
-            {loading ? (
+            {isLoading ? (
               <Loader className="w-6 h-6 animate-spin mx-auto" />
             ) : (
               "Login"

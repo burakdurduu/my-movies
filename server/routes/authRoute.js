@@ -3,7 +3,7 @@ import {
   login,
   logout,
   signup,
-  getMe,
+  checkAuth,
   verifyEmail,
   forgotPassword,
   resetPassword,
@@ -12,7 +12,7 @@ import protectRoute from "../middleware/protectRoute.js";
 
 const router = express.Router();
 
-router.get("/me", protectRoute, getMe);
+router.get("/check-auth", protectRoute, checkAuth);
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/logout", logout);

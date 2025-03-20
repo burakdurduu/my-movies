@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import LogoutButton from "./common/LogoutButton";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthStore } from "../store/authStore";
 import NavSearch from "./common/NavSearch.jsx";
 import { useState } from "react";
 import { Film, Menu } from "lucide-react";
 
 function Navbar() {
-  const { authUser } = useAuthContext();
+  const { isAuthenticated } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -40,7 +40,7 @@ function Navbar() {
             <NavSearch />
           </div>
           <div className="hidden md:flex items-center justify-center text-center space-x-2 absolute right-0 mr-4">
-            {!authUser ? (
+            {!isAuthenticated ? (
               <>
                 <Link
                   to="/login"
@@ -102,7 +102,7 @@ function Navbar() {
             Favorites
           </Link>
           <div className="space-y-2">
-            {!authUser ? (
+            {!isAuthenticated ? (
               <>
                 <Link
                   to="/login"

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import MovieCard from "../components/MovieCard";
 import { getPopularMovies, searchMovie } from "../services/api";
+import MovieCard from "../components/MovieCard";
+import LoadingSpinner from "../components/common/LoadingSpinner";
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -30,11 +31,7 @@ function Home() {
   }, [query]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-yellow-500"></div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (

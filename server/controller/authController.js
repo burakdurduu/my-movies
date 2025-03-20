@@ -93,18 +93,18 @@ export const logout = async (req, res) => {
   }
 };
 
-export const getMe = async (req, res) => {
+export const checkAuth = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.user.id } });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+
     res.status(200).json({
-      ...user,
-      password: undefined,
+      user: { ...user, password: undefined },
     });
   } catch (error) {
-    console.log("Error in getMe controller ", error.message);
+    console.log("Error in checkAuth controller ", error.message);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
